@@ -15,7 +15,16 @@ let project = Project.executable(
         .RxSwift,
         .RxFlow,
         .Gifu,
-        .Kingfisher
+        .Kingfisher,
+        .Inject,
+        .Swinject,
+        .ReactorKit,
+        .RxGesture,
+        .Lottie,
+        .ViewAnimator,
+        .Quick,
+        .Nimble,
+        .Tabman
     ],
     product: .app,
     deploymentTarget: .iOS(targetVersion: "16.0", devices: [.iphone, .ipad]),
@@ -27,6 +36,15 @@ let project = Project.executable(
         .SPM.RxSwift,
         .SPM.RxFlow,
         .SPM.Gifu,
-        .SPM.Kingfisher
+        .SPM.Kingfisher,
+        .SPM.Inject,
+        .SPM.Swinject,
+        .SPM.ReactorKit,
+        .SPM.RxGesture,
+        .SPM.Lottie,
+        .SPM.ViewAnimator,
+        .SPM.Quick,
+        .SPM.Nimble,
+        .SPM.Tabman
     ]
 )

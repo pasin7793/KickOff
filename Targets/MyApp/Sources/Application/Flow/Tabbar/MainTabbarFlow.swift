@@ -15,10 +15,9 @@ final class MainTabbarFlow: Flow{
     
     private let rootVC = MainTabbarVC()
     
-    @Inject private var homeFlow: HomeFlow
-    @Inject private var postListFlow: PostListFlow
-    @Inject private var alarmFlow: AlarmFlow
-    @Inject private var myPageFlow: MyPageFlow
+    @Inject private var matchFlow: MatchFlow
+    @Inject private var newsFlow: NewsFlow
+    @Inject private var leagueFlow: LeagueFlow
     
     // MARK: - Init
     deinit {
@@ -41,7 +40,7 @@ final class MainTabbarFlow: Flow{
 private extension MainTabbarFlow{
     func coordinateToMainTabbar() -> FlowContributors {
         Flows.use(
-            homeFlow, postListFlow, alarmFlow,
+            matchFlow, newsFlow, leagueFlow,
             when: .created
         ) { [unowned self] (root1: UINavigationController,
                             root2: UINavigationController,
@@ -65,9 +64,9 @@ private extension MainTabbarFlow{
             self.rootVC.setViewControllers([root1, root2, root3], animated: true)
         }
         return .multiple(flowContributors: [
-            .contribute(withNextPresentable: homeFlow, withNextStepper: homeFlow.stepper),
-            .contribute(withNextPresentable: postListFlow, withNextStepper: postListFlow.stepper),
-            .contribute(withNextPresentable: alarmFlow, withNextStepper: alarmFlow.stepper)
+            .contribute(withNextPresentable: matchFlow, withNextStepper: matchFlow.stepper),
+            .contribute(withNextPresentable: newsFlow, withNextStepper: newsFlow.stepper),
+            .contribute(withNextPresentable: leagueFlow, withNextStepper: leagueFlow.stepper)
         ])
     }
 }

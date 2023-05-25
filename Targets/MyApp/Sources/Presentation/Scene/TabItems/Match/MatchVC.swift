@@ -1,5 +1,5 @@
 
 
-final class HomeVC: BaseVC<MatchReactor> {
+final class MatchVC: BaseVC<MatchReactor> {
     
 }

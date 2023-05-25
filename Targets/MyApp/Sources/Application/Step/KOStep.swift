@@ -12,6 +12,7 @@ enum KOStep: Step{
     
     //Main
     case mainTabbarIsRequired
+    case matchIsRequired
     case newsIsRequired
     case leagueIsRequired
     

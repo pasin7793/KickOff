@@ -24,7 +24,8 @@ let project = Project.executable(
         .ViewAnimator,
         .Quick,
         .Nimble,
-        .Tabman
+        .Tabman,
+        .SwinjectAutoregistration
     ],
     product: .app,
     deploymentTarget: .iOS(targetVersion: "16.0", devices: [.iphone, .ipad]),
@@ -45,6 +46,7 @@ let project = Project.executable(
         .SPM.ViewAnimator,
         .SPM.Quick,
         .SPM.Nimble,
-        .SPM.Tabman
+        .SPM.Tabman,
+        .SPM.SwinjectAutoregistration
     ]
 )

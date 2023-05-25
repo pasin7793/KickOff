@@ -23,6 +23,7 @@ public extension TargetDependency.SPM{
     static let Quick = TargetDependency.package(product: "Quick")
     static let Nimble = TargetDependency.package(product: "Nimble")
     static let Tabman = TargetDependency.package(product: "Tabman")
+    static let SwinjectAutoregistration = TargetDependency.package(product: "SwinjectAutoregistration")
 }
 
 public extension Package {
@@ -99,5 +100,9 @@ public extension Package {
         url: "https://github.com/uias/Tabman.git",
         requirement: .upToNextMajor(from: "3.0.1")
     )
+    
+    static let SwinjectAutoregistration = Package.remote(
+        url: "https://github.com/Swinject/SwinjectAutoregistration",
+        requirement: .upToNextMajor(from: "2.8.3"))
 }
 

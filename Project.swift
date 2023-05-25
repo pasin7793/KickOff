@@ -22,8 +22,6 @@ let project = Project.executable(
         .RxGesture,
         .Lottie,
         .ViewAnimator,
-        .Quick,
-        .Nimble,
         .Tabman,
         .SwinjectAutoregistration
     ],
@@ -44,8 +42,6 @@ let project = Project.executable(
         .SPM.RxGesture,
         .SPM.Lottie,
         .SPM.ViewAnimator,
-        .SPM.Quick,
-        .SPM.Nimble,
         .SPM.Tabman,
         .SPM.SwinjectAutoregistration
     ]

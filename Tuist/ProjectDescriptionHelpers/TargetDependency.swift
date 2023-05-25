@@ -20,8 +20,6 @@ public extension TargetDependency.SPM{
     static let RxGesture = TargetDependency.package(product: "RxGesture")
     static let Lottie = TargetDependency.package(product: "Lottie")
     static let ViewAnimator = TargetDependency.package(product: "ViewAnimator")
-    static let Quick = TargetDependency.package(product: "Quick")
-    static let Nimble = TargetDependency.package(product: "Nimble")
     static let Tabman = TargetDependency.package(product: "Tabman")
     static let SwinjectAutoregistration = TargetDependency.package(product: "SwinjectAutoregistration")
 }
@@ -84,16 +82,6 @@ public extension Package {
     static let ViewAnimator = Package.remote(
         url: "https://github.com/marcosgriselli/ViewAnimator.git",
         requirement: .upToNextMajor(from: "3.1.0")
-    )
-    
-    static let Quick = Package.remote(
-        url: "https://github.com/Quick/Quick.git",
-        requirement: .upToNextMajor(from: "7.0.0")
-    )
-    
-    static let Nimble = Package.remote(
-        url: "https://github.com/Quick/Nimble.git",
-        requirement: .upToNextMajor(from: "12.0.0")
     )
     
     static let Tabman = Package.remote(

@@ -30,7 +30,7 @@ final class LeagueFlow: Flow{
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step.asKOStep else { return .none }
         switch step{
-        case .matchIsRequired:
+        case .leagueIsRequired:
             return coordinateToLeague()
         default:
             return .none

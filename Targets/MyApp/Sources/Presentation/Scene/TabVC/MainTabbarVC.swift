@@ -17,7 +17,7 @@ final class MainTabbarVC: UITabBarController {
 private extension MainTabbarVC {
     func configureVC() {
         UITabBar.clearShadow()
-        tabBar.backgroundColor = MOIZAAsset.moizaGray1.color
+        tabBar.backgroundColor = .white
         tabBar.layer.applyShadow(
             color: MOIZAAsset.moizaGray6.color,
             offSet: .init(width: 0, height: 0),

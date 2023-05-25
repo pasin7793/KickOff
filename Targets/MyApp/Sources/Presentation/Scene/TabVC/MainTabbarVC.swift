@@ -19,7 +19,7 @@ private extension MainTabbarVC {
         UITabBar.clearShadow()
         tabBar.backgroundColor = .white
         tabBar.layer.applyShadow(
-            color: MOIZAAsset.moizaGray6.color,
+            color: .black,
             offSet: .init(width: 0, height: 0),
             blur: 12)
     }

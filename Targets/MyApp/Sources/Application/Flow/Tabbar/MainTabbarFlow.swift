@@ -1,35 +1,35 @@
-
 import RxFlow
+import RxRelay
+import RxSwift
 import UIKit
 
-final class MainTabbarFlow: Flow{
-    // MARK: - Properties
-    enum TabIndex: Int {
-        case match = 0
-        case news
-        case league
+struct MainTabbarStepper: Stepper {
+    let steps: PublishRelay<Step> = .init()
+
+    var initialStep: Step {
+        return KOStep.clubListIsRequired
     }
-    var root: Presentable{
+}
+
+final class MainTabbarFlow: Flow {
+    // MARK: - Properties
+    var root: Presentable {
         return self.rootVC
     }
-    
-    private let rootVC = MainTabbarVC()
-    
-    @Inject private var matchFlow: MatchFlow
-    @Inject private var newsFlow: NewsFlow
-    @Inject private var leagueFlow: LeagueFlow
-    
+
+    let stepper: MainStepper = .init()
+    private let rootVC = UINavigationController()
+
     // MARK: - Init
     deinit {
         print("\(type(of: self)): \(#function)")
     }
-    
+
     // MARK: - Navigate
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step.asKOStep else { return .none }
-        switch step{
-        case .mainTabbarIsRequired:
-            return coordinateToMainTabbar()
+        switch step {
+        
         default:
             return .none
         }
@@ -37,36 +37,84 @@ final class MainTabbarFlow: Flow{
 }
 
 // MARK: - Method
-private extension MainTabbarFlow{
-    func coordinateToMainTabbar() -> FlowContributors {
-        Flows.use(
-            matchFlow, newsFlow, leagueFlow,
-            when: .created
-        ) { [unowned self] (root1: UINavigationController,
-                            root2: UINavigationController,
-                            root3: UINavigationController) in
-            let matchImage = UIImage(systemName: "sportscourt.fill")
-            let newsImage = UIImage(systemName: "newspaper.fill")
-            let leagueImage = UIImage(systemName: "trophy.fill")
-            
-            let matchSelectedImage = matchImage?.withTintColor(UIColor.orange, renderingMode: .alwaysOriginal)
-            let newsSelectedImage = newsImage?.withTintColor(UIColor.orange, renderingMode: .alwaysOriginal)
-            let leagueSelectedImage = leagueImage?.withTintColor(UIColor.orange, renderingMode: .alwaysOriginal)
-            
-            let matchItem = UITabBarItem(title: nil, image: matchImage, selectedImage: matchSelectedImage)
-            let newsItem = UITabBarItem(title: nil, image: newsImage, selectedImage: newsSelectedImage)
-            let leagueItem = UITabBarItem(title: nil, image: leagueImage, selectedImage: leagueSelectedImage)
-            
-            root1.tabBarItem = matchItem
-            root2.tabBarItem = newsItem
-            root3.tabBarItem = leagueItem
-            
-            self.rootVC.setViewControllers([root1, root2, root3], animated: true)
+private extension MainTabbarFlow {
+    func coordinateToClubList() -> FlowContributors {
+        let vc = AppDelegate.container.resolve(HomeVC.self)!
+        self.rootVC.setViewControllers([vc], animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor!))
+    }
+    func navigateToDetailClub(clubID: Int) -> FlowContributors {
+        let reactor = AppDelegate.container.resolve(DetailClubReactor.self, argument: clubID)!
+        let vc = DetailClubVC(reactor: reactor)
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
+    }
+    func navigateToMyPage() -> FlowContributors {
+        let vc = AppDelegate.container.resolve(MyPageVC.self)!
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.reactor!))
+    }
+    func presentToAlert(title: String?, message: String?, style: UIAlertController.Style, actions: [UIAlertAction]) -> FlowContributors {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: style)
+        actions.forEach { alert.addAction($0) }
+        self.rootVC.topViewController?.present(alert, animated: true)
+        return .none
+    }
+    func presentToMemberAppend(closure: @escaping (([User]) -> Void), clubType: ClubType) -> FlowContributors {
+        let reactor = AppDelegate.container.resolve(MemberAppendReactor.self, arguments: closure, clubType)!
+        let vc = MemberAppendVC(reactor: reactor)
+        self.rootVC.topViewController?.presentPanModal(vc)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
+    }
+    func dismiss() -> FlowContributors {
+        self.rootVC.topViewController?.dismiss(animated: true)
+        return .none
+    }
+    func navigateToFirstNewClub() -> FlowContributors {
+        let reactor = AppDelegate.container.resolve(NewClubReactor.self)!
+        let vc = FirstNewClubVC(reactor: reactor)
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
+    }
+    func navigateToSecondNewClub(reactor: NewClubReactor) -> FlowContributors {
+        let vc = SecondNewClubVC(reactor: reactor)
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
+    }
+    func navigateToThirdNewClub(reactor: NewClubReactor) -> FlowContributors {
+        let vc = ThirdNewClubVC(reactor: reactor)
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
+    }
+    func navigateToFirstUpdateClub(club: Club) -> FlowContributors {
+        let reactor = AppDelegate.container.resolve(UpdateClubReactor.self, argument: club)!
+        let vc = FirstUpdateClubVC(reactor: reactor)
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
+    }
+    func navigateToSecondUpdateClub(reactor: UpdateClubReactor) -> FlowContributors {
+        let vc = SecondUpdateClubVC(reactor: reactor)
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
+    }
+    func presentToFailureAlert(title: String?, message: String?, action: [UIAlertAction] = []) -> FlowContributors {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        if !action.isEmpty {
+            action.forEach(alert.addAction(_:))
+        } else {
+            alert.addAction(.init(title: "확인", style: .default))
         }
-        return .multiple(flowContributors: [
-            .contribute(withNextPresentable: matchFlow, withNextStepper: matchFlow.stepper),
-            .contribute(withNextPresentable: newsFlow, withNextStepper: newsFlow.stepper),
-            .contribute(withNextPresentable: leagueFlow, withNextStepper: leagueFlow.stepper)
-        ])
+        self.rootVC.topViewController?.present(alert, animated: true)
+        return .none
+    }
+    func navigateToClubMembers(clubID: Int, isHead: Bool, isOpened: Bool) -> FlowContributors {
+        let reactor = AppDelegate.container.resolve(ClubMemberReactor.self, arguments: clubID, isOpened)!
+        let vc = ClubMemberVC(reactor: reactor, isHead: isHead)
+        self.rootVC.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
+    }
+    func popToRoot() -> FlowContributors {
+        self.rootVC.popToRootViewController(animated: true)
+        return .none
     }
 }

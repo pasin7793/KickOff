@@ -11,10 +11,9 @@ enum KOStep: Step{
     case dismiss
     
     //Main
-    case mainTabbarIsRequired
-    case matchIsRequired
-    case newsIsRequired
-    case leagueIsRequired
-    
-    
+    case matchListIsRequired
+    case detailMatchIsRequired(id: Int)
+    case newsListIsRequired
+    case leagueListIsRequired
+    case detailLeagueIsRequired(id: Int)
 }

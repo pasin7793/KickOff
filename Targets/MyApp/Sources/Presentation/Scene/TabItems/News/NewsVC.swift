@@ -1,5 +1,5 @@
 
 
-final class NewsVC: BaseVC<NewsReactor> {
+final class NewsVC: BaseVC<MainTabbarReactor> {
     
 }

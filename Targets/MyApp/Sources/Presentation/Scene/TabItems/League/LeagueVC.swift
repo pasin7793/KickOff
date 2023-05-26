@@ -1,5 +1,5 @@
 
 
-final class LeagueVC: BaseVC<LeagueReactor> {
+final class LeagueVC: BaseVC<MainTabbarReactor> {
     
 }

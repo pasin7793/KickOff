@@ -4,7 +4,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-final class MatchVC: BaseVC<MatchReactor> {
+final class MatchVC: BaseVC<MainTabbarReactor> {
     
     
 }

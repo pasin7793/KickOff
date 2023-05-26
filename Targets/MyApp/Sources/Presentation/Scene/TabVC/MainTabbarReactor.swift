@@ -1,10 +1,17 @@
+//
+//  HomeReactor.swift
+//  MOIZA
+//
+//  Created by 최형우 on 2022/02/15.
+//  Copyright © 2022 com.connect. All rights reserved.
+//
 
 import ReactorKit
 import RxFlow
 import RxSwift
 import RxRelay
 
-final class LeagueReactor: Reactor, Stepper {
+final class MainTabbarReactor: Reactor, Stepper {
     // MARK: - Properties
     var steps: PublishRelay<Step> = .init()
     
@@ -30,7 +37,7 @@ final class LeagueReactor: Reactor, Stepper {
 }
 
 // MARK: - Mutate
-extension LeagueReactor {
+extension MainTabbarReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
             
@@ -40,7 +47,7 @@ extension LeagueReactor {
 }
 
 // MARK: - Reduce
-extension LeagueReactor {
+extension MainTabbarReactor {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         
@@ -53,6 +60,6 @@ extension LeagueReactor {
 }
 
 // MARK: - Method
-private extension LeagueReactor {
+private extension MainTabbarReactor {
     
 }

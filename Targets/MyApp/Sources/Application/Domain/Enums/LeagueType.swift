@@ -1,9 +1,9 @@
-public enum ClubType: String, Codable, CaseIterable {
+public enum LeagueType: String, Codable, CaseIterable {
     case league1 = "K League 1"
     case league2 = "K League 2"
 }
 
-public extension ClubType {
+public extension LeagueType {
     var display: String {
         switch self {
         case .league1: return "K리그1"

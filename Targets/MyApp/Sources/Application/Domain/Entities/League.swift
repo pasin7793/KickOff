@@ -1,9 +1,15 @@
-//
-//  League.swift
-//  KickOff
-//
-//  Created by 임준화 on 2023/05/25.
-//  Copyright © 2023 KickOff. All rights reserved.
-//
+public struct League: Equatable {
+    public let id: Int
+    public let type: LeagueType
+    public let name: String
 
-import Foundation
+    public init(
+        id: Int,
+        type: LeagueType,
+        name: String
+    ) {
+        self.id = id
+        self.type = type
+        self.name = name
+    }
+}

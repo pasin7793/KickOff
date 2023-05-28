@@ -17,21 +17,32 @@ final class MainTabbarReactor: Reactor, Stepper {
     
     private let disposeBag: DisposeBag = .init()
     
+    private let fetchLeagueListUseCase: FetchLeagueListUseCase
+    
     // MARK: - Reactor
     enum Action {
-        
+        case viewDidLoad
+        case leagueDidTap(Int)
     }
     enum Mutation {
-        
+        case setIsLoading(Bool)
+        case setClubList([LeagueList])
     }
     struct State {
-        
+        var leagueList: [LeagueList]
+        var isLoading: Bool
+        var isRefreshing: Bool
     }
     let initialState: State
     
     // MARK: - Init
-    init() {
-        initialState = State()
+    init(
+        fetchLeagueListUseCase: FetchLeagueListUseCase
+    ) {
+        initialState = State(
+            leagueList: [],
+            isLoading: false,
+            isRefreshing: false)
     }
     
 }
@@ -41,6 +52,11 @@ extension MainTabbarReactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
             
+        case .viewDidLoad:
+            return viewDidLoad()
+            
+        case let .leagueDidTap(leagueId):
+            steps.accept(KOStep.detailLeagueIsRequired(id: leagueId))
         }
         return .empty()
     }
@@ -50,9 +66,12 @@ extension MainTabbarReactor {
 extension MainTabbarReactor {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
-        
         switch mutation {
             
+        case let .setIsLoading(load):
+            newState.isLoading = load
+        case let .setClubList(list):
+            newState.leagueList = list
         }
         
         return newState
@@ -61,5 +80,10 @@ extension MainTabbarReactor {
 
 // MARK: - Method
 private extension MainTabbarReactor {
-    
+    func viewDidLoad() -> Observable<Mutation> {
+        let start = Observable.just(Mutation.setIsLoading(true))
+        let leagues: Observable<([LeagueList])> = Observable.just(
+            fetchLeagueListUseCase.execute(type: .league1).asObservable()
+        )
+    }
 }

@@ -7,7 +7,7 @@ public struct FetchLeagueListUseCase {
 
     private let leagueRepository: LeagueRepository
 
-    public func execute(type: LeagueType) -> Observable<[League]> {
+    public func execute(type: LeagueType) -> Observable<[LeagueList]> {
         leagueRepository.fetchLeagueList(type: type)
     }
 }

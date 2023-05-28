@@ -1,4 +1,4 @@
-public struct League: Equatable {
+public struct LeagueList: Equatable {
     public let id: Int
     public let type: LeagueType
     public let name: String

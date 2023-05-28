@@ -1,5 +1,5 @@
 import RxSwift
 
 public protocol LeagueRepository {
-    func fetchLeagueList(type: LeagueType) -> Observable<[League]>
+    func fetchLeagueList(type: LeagueType) -> Observable<[LeagueList]>
 }

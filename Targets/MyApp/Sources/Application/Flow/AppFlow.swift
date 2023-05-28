@@ -9,7 +9,7 @@ struct AppStepper: Stepper{
     private let disposeBag: DisposeBag = .init()
     
     func readyToEmitSteps() {
-        Observable.just(KOStep.mainTabbarIsRequired)
+        Observable.just(KOStep.matchListIsRequired)
             .bind(to: steps)
             .disposed(by: disposeBag)
     }
@@ -19,17 +19,18 @@ final class AppFlow: Flow{
     
     // MARK: - Properties
     var root: Presentable{
-        return self.rootWindow
+        return self.rootVC
     }
     
-    private let rootWindow: UIWindow
+    private lazy var rootVC: UIViewController = {
+        let launchScreenStoryboard = UIStoryboard(name: "LaunchScreen", bundle: nil)
+        let launchScreen = launchScreenStoryboard.instantiateViewController(withIdentifier: "LaunchScreen")
+        return launchScreen
+    }()
     
     // MARK: - Init
     
-    init(
-        with window: UIWindow
-    ){
-        self.rootWindow = window
+    init(){
     }
     
     deinit{
@@ -40,8 +41,8 @@ final class AppFlow: Flow{
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step.asKOStep else { return .none }
         switch step{
-        case .mainTabbarIsRequired:
-            return coordinateToMainTabbar()
+        case .matchListIsRequired:
+            return coordinateMatchList()
         default:
             return .none
         }
@@ -50,17 +51,20 @@ final class AppFlow: Flow{
 
 // MARK: - Method
 private extension AppFlow{
-    func coordinateToMainTabbar() -> FlowContributors {
-        @Inject var flow: MainTabbarFlow
+    func coordinateMatchList() -> FlowContributors {
+        let flow = MainTabbarFlow()
         Flows.use(
             flow,
             when: .created
         ) { [unowned self] root in
-            self.rootWindow.rootViewController = root
+            DispatchQueue.main.async {
+                self.rootVC.dismiss(animated: false)
+                self.rootVC.present(root, animated: true)
+            }
         }
         return .one(flowContributor: .contribute(withNextPresentable: flow,
                                                  withNextStepper: OneStepper(withSingleStep:
-                                                        KOStep.mainTabbarIsRequired)))
+                                                                                KOStep.matchListIsRequired)))
     }
 }
 

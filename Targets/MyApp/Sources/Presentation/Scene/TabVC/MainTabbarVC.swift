@@ -9,8 +9,7 @@ import Pageboy
 import Lottie
 import Kingfisher
 
-final class HomeVC: TabmanViewController, View {
-    
+final class MainTabbarVC: TabmanViewController, View {
     
     // MARK: - Properties
     private var viewControllers: [UIViewController] = []
@@ -28,10 +27,51 @@ final class HomeVC: TabmanViewController, View {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public func setViewControllers(_ vcs: [UIViewController]) {
+        self.viewControllers = vcs
+        self.dataSource = self
+
+        let bar = TMBar.ButtonBar()
+        bar.layout.transitionStyle = .snap
+        bar.layout.interButtonSpacing = 90
+        bar.buttons.customize {
+            $0.font = UIFont.systemFont(ofSize: 15)
+            $0.tintColor = .red
+            $0.selectedFont = UIFont.systemFont(ofSize: 15)
+            $0.selectedTintColor = UIColor(red: 0, green: 0.65, blue: 1, alpha: 0.99)
+        }
+        bar.indicator.weight = .custom(value: 2)
+        bar.indicator.cornerStyle = .rounded
+        bar.layout.alignment = .centerDistributed
+        bar.systemBar().backgroundStyle = .clear
+        addBar(bar, dataSource: self, at: .bottom)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setup()
+        addView()
+        setLayout()
+        configNavigation()
+    }
+    
     func bind(reactor: MainTabbarReactor) {
         bindAction(reactor: reactor)
         bindView(reactor: reactor)
         bindState(reactor: reactor)
+    }
+    
+    func setup() {
+        
+    }
+    func addView() {
+       
+    }
+    func setLayout() {
+        
+    }
+    func configNavigation() {
+        
     }
     
     func bindAction(reactor: MainTabbarReactor){
@@ -47,7 +87,7 @@ final class HomeVC: TabmanViewController, View {
     }
 }
 
-extension HomeVC: PageboyViewControllerDataSource, TMBarDataSource {
+extension MainTabbarVC: PageboyViewControllerDataSource, TMBarDataSource {
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
         return viewControllers.count
     }

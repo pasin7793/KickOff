@@ -11,7 +11,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         
-        AppDelegate.container.registerDependencies()
+        assembler = Assembler([
+            VCAssembly()
+            
+        ], container: AppDelegate.container)
         return true
     }
     

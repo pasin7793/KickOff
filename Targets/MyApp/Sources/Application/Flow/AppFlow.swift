@@ -57,14 +57,17 @@ private extension AppFlow{
             flow,
             when: .created
         ) { [unowned self] root in
+            root.modalPresentationStyle = .fullScreen
+            root.modalTransitionStyle = .crossDissolve
             DispatchQueue.main.async {
                 self.rootVC.dismiss(animated: false)
                 self.rootVC.present(root, animated: true)
             }
         }
-        return .one(flowContributor: .contribute(withNextPresentable: flow,
-                                                 withNextStepper: OneStepper(withSingleStep:
-                                                                                KOStep.matchListIsRequired)))
+        return .one(flowContributor: .contribute(
+            withNextPresentable: flow,
+            withNextStepper: OneStepper(withSingleStep: KOStep.matchListIsRequired)
+        ))
     }
 }
 

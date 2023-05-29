@@ -12,8 +12,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         
         assembler = Assembler([
-            VCAssembly()
-            
+            VCAssembly(),
+            ReactorAssembly(),
+        
         ], container: AppDelegate.container)
         return true
     }

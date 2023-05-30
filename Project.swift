@@ -23,7 +23,8 @@ let project = Project.executable(
         .Lottie,
         .ViewAnimator,
         .Tabman,
-        .SwinjectAutoregistration
+        .SwinjectAutoregistration,
+        .RxDataSources
     ],
     product: .app,
     deploymentTarget: .iOS(targetVersion: "16.0", devices: [.iphone, .ipad]),
@@ -43,6 +44,7 @@ let project = Project.executable(
         .SPM.Lottie,
         .SPM.ViewAnimator,
         .SPM.Tabman,
-        .SPM.SwinjectAutoregistration
+        .SPM.SwinjectAutoregistration,
+        .SPM.RxDataSources
     ]
 )

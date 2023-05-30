@@ -12,7 +12,7 @@ class BaseVC<T: Reactor>: UIViewController{
     @available(*, unavailable)
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(white: 1, alpha: 0.95)
         setUp()
         addView()
         setLayout()

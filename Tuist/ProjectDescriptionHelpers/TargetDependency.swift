@@ -22,6 +22,7 @@ public extension TargetDependency.SPM{
     static let ViewAnimator = TargetDependency.package(product: "ViewAnimator")
     static let Tabman = TargetDependency.package(product: "Tabman")
     static let SwinjectAutoregistration = TargetDependency.package(product: "SwinjectAutoregistration")
+    static let RxDataSources = TargetDependency.package(product: "RxDataSources")
 }
 
 public extension Package {
@@ -92,5 +93,9 @@ public extension Package {
     static let SwinjectAutoregistration = Package.remote(
         url: "https://github.com/Swinject/SwinjectAutoregistration",
         requirement: .upToNextMajor(from: "2.8.3"))
+    
+    static let RxDataSources = Package.remote(
+        url: "https://github.com/RxSwiftCommunity/RxDataSources",
+        requirement: .upToNextMajor(from: "5.0.2"))
 }
 

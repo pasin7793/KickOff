@@ -2,7 +2,7 @@ import RxDataSources
 
 struct LeagueSection: SectionModelType {
     let header: String
-    var items: [PostList]
+    var items: [League]
 }
 
 extension PostSection {

@@ -2,13 +2,13 @@ import RxDataSources
 
 struct LeagueSection: SectionModelType {
     let header: String
-    var items: [League]
+    var items: [All]
 }
 
-extension PostSection {
-    typealias Item = PostList
+extension LeagueSection {
+    typealias Item = All
     
-    init(original: PostSection, items: [PostList]) {
+    init(original: LeagueSection, items: [All]) {
         self = original
         self.items = items
     }

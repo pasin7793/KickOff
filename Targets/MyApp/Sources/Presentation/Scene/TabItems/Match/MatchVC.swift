@@ -1,4 +1,7 @@
 
-final class MatchVC: BaseVC<MatchReactor> {
-    
+final class MatchVC: BaseVC<MatchViewModel> {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
 }

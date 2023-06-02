@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - League
-struct League {
+struct LeagueList {
     let tabs, allAvailableSeasons: [String]
     let details: Details
     let seostr: String
@@ -230,7 +230,7 @@ struct DataTable {
 
 // MARK: - All
 struct All {
-    let name, shortName: Name
+    let name, shortName: String
     let id: Int
     let pageURL: String
     let deduction: NSNull?

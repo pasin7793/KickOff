@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: scene)
         self.window = window
         
-        let appFlow = AppFlow(with: window)
+        let appFlow = AppFlow(window: window)
         let appStepper = AppStepper()
         
         coordinator.coordinate(flow: appFlow, with: appStepper)

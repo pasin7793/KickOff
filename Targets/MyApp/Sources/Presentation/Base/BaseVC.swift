@@ -1,60 +1,44 @@
 
-
 import UIKit
-import ReactorKit
+import RxCocoa
+import RxSwift
 import Then
 import SnapKit
 
-class BaseVC<T: Reactor>: UIViewController{
-    let bound = UIScreen.main.bounds
-    var disposeBag: DisposeBag = .init()
+class BaseVC<T: BaseViewModel>: UIViewController {
     
-    @available(*, unavailable)
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = UIColor(white: 1, alpha: 0.95)
-        setUp()
-        addView()
-        setLayout()
-        configureVC()
-        configureNavigation()
-        if traitCollection.userInterfaceStyle == .dark { darkConfigure() }
-    }
+    let viewModel: T
+    var disposeBag = DisposeBag()
+    let bounds = UIScreen.main.bounds
     
-    override func viewDidLayoutSubviews() {
-        setLayoutSubViews()
-    }
-    
-    init(reactor: T?){
-        super.init(nibName: nil, bundle: nil)
-        self.reactor = reactor
+    init(_ viewModel: T) {
+        self.viewModel = viewModel
+        super .init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    deinit{
-        print("\(type(of: self)): \(#function)")
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setup()
+        bindVM()
+        addView()
+        setLayout()
+        configureVC()
+        configureNavigation()
+        view.backgroundColor = .white
     }
     
-    func setUp(){}
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+
+    func setup(){}
+    func bindVM(){}
     func addView(){}
     func setLayout(){}
-    func setLayoutSubViews(){}
     func configureVC(){}
-    func configureNavigation(){}
-    func darkConfigure(){}
-    
-    func bindView(reactor: T){}
-    func bindAction(reactor: T){}
-    func bindState(reactor: T){}
-}
-
-extension BaseVC: View{
-    func bind(reactor: T) {
-        bindView(reactor: reactor)
-        bindAction(reactor: reactor)
-        bindState(reactor: reactor)
-    }
+    func configureNavigation() {}
 }

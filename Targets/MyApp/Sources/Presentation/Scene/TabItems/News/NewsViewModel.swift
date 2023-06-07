@@ -8,7 +8,17 @@
 
 import Foundation
 import RxFlow
+import RxSwift
+import Moya
+
+protocol fetchingData: AnyObject{
+    var fetchData: PublishSubject<[NewsData]> {get}
+}
 
 final class NewsViewModel: BaseViewModel, Stepper{
+    weak var delegate: fetchingData?
     
+    func getNews(){
+        
+    }
 }

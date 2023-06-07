@@ -15,9 +15,10 @@ final class LeagueVC: BaseVC<LeagueViewModel> {
         $0.backgroundColor = .white
     }
     
-    private let segmentedControl = UISegmentedControl(items: ["league1View", "league2View"]).then {
+    private let segmentedControl = UISegmentedControl(items: ["K리그1", "K리그2"]).then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addTarget(self, action: #selector(switchView), for: .touchUpInside)
+        $0.selectedSegmentIndex = 0
     }
     
     private let league1View = UIView().then{
@@ -47,6 +48,7 @@ final class LeagueVC: BaseVC<LeagueViewModel> {
         segmentedControl.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(150)
+            make.width.equalToSuperview().inset(10)
         }
     }
     

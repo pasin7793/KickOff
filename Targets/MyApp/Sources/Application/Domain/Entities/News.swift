@@ -17,7 +17,8 @@ struct NewsData: Codable{
     let imageUrl: String
     let title, gmtTime: String
     let sourceIconUrl: String
-    //let page: Page
+    let sourceStr: String
+    let page: Page
 }
 
 // MARK: - Page

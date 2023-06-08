@@ -5,7 +5,6 @@ import Foundation
 struct LeagueList: Codable{
     let seostr: String
     let table: [TableElement]
-    let playoff: Bool
 }
 
 // MARK: - TableElement

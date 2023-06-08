@@ -16,7 +16,6 @@ final class NewsVC: BaseVC<NewsViewModel>, NewsProtocol{
     }
     
     private let newsTableView = UITableView().then{
-        $0.rowHeight = UITableView.automaticDimension
         $0.rowHeight = 300
         $0.register(NewsCell.self, forCellReuseIdentifier: NewsCell.identifier)
         $0.separatorStyle = .none

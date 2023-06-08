@@ -7,14 +7,6 @@ import RxDataSources
 
 final class LeagueVC: BaseVC<LeagueViewModel> {
     
-    private let leagueListTableView = UITableView(frame: .zero, style: .plain).then {
-        $0.register(LeagueCell.self, forCellReuseIdentifier: LeagueCell.identifier)
-        $0.rowHeight = UITableView.automaticDimension
-        $0.estimatedRowHeight = 200
-        $0.showsVerticalScrollIndicator = false
-        $0.backgroundColor = .white
-    }
-    
     private let segmentedControl = UISegmentedControl(items: ["K리그1", "K리그2"]).then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addTarget(self, action: #selector(switchView), for: .touchUpInside)
@@ -35,15 +27,10 @@ final class LeagueVC: BaseVC<LeagueViewModel> {
     }
     
     override func addView() {
-        view.addSubViews(leagueListTableView,segmentedControl, league1View, league2View)
+        view.addSubViews(segmentedControl, league1View, league2View)
     }
     
     override func setLayout() {
-        leagueListTableView.snp.makeConstraints { make in
-            make.top.equalTo(100)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
         
         segmentedControl.snp.makeConstraints { make in
             make.centerX.equalToSuperview()

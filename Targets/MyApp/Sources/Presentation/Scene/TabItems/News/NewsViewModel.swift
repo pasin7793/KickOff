@@ -11,14 +11,27 @@ import RxFlow
 import RxSwift
 import Moya
 
-protocol fetchingData: AnyObject{
-    var fetchData: PublishSubject<[NewsData]> {get}
-}
-
 final class NewsViewModel: BaseViewModel, Stepper{
-    weak var delegate: fetchingData?
     
-    func getNews(){
-        
+    private let provider = MoyaProvider<League1Service>(plugins: [KOLoggingPlugin()])
+    var newsData: [NewsData] = []
+    
+    func getNews(completion : @escaping (Result<Bool, Error>) -> ()){
+        provider.request(.news){ result in
+            print(result)
+            switch result{
+            case let .success(response):
+                do{
+                    let decoder = JSONDecoder()
+                    let json = try decoder.decode(NewsList.self, from: response.data)
+                    self.newsData = json.news.data
+                    completion(.success(true))
+                } catch {
+                    print(error)
+                }
+            case let .failure(err):
+                print(err.localizedDescription)
+            }
+        }
     }
 }

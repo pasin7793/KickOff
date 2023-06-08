@@ -2,7 +2,7 @@
 import Foundation
 
 // MARK: - Football
-struct Football {
+struct LeagueList {
     let seostr: String
     let table: [TableElement]
     let playoff: Bool
@@ -25,11 +25,11 @@ enum Color {
 
 // MARK: - DataTable
 struct DataTable {
-    let all: [All]
+    let all: [League]
 }
 
 // MARK: - All
-struct All {
+struct League {
     let name, shortName: String
     let id: Int
     let pageURL: String

@@ -6,7 +6,9 @@ import Then
 import SnapKit
 import RxDataSources
 
-final class NewsVC: BaseVC<NewsViewModel>{
+final class NewsVC: BaseVC<NewsViewModel>, NewsProtocol{
+    
+    var newsData = PublishSubject<[NewsData]>()
     
     private let now = Date()
     private let formatter = DateFormatter().then{
@@ -26,8 +28,11 @@ final class NewsVC: BaseVC<NewsViewModel>{
     }
     
     override func setup() {
-        newsTableView.delegate = self
-        newsTableView.dataSource = self
+        viewModel.delegate = self
+        newsData.bind(to: newsTableView.rx.items(cellIdentifier: NewsCell.identifier, cellType: NewsCell.self)) {
+            (row, data, cell) in
+            cell.bindData(with: data)
+        }.disposed(by: disposeBag)
     }
     
     override func viewDidLoad() {
@@ -49,17 +54,5 @@ final class NewsVC: BaseVC<NewsViewModel>{
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
-    }
-}
-
-extension NewsVC: UITableViewDataSource, UITableViewDelegate{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.newsData.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.identifier, for: indexPath) as! NewsCell
-        cell.bindData(with: viewModel.newsData[indexPath.row])
-        return cell
     }
 }

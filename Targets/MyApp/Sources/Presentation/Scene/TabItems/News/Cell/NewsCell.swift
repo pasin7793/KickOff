@@ -26,7 +26,13 @@ final class NewsCell: UITableViewCell {
     
     private let sourceLabel = UILabel().then{
         $0.font = UIFont.systemFont(ofSize: 11, weight: .medium)
-        $0.textColor = .black
+        $0.textColor = .darkGray
+        $0.sizeToFit()
+    }
+    
+    private let dataLabel = UILabel().then{
+        $0.font = UIFont.systemFont(ofSize: 11, weight: .medium)
+        $0.textColor = .darkGray
         $0.sizeToFit()
     }
     
@@ -40,6 +46,17 @@ final class NewsCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setDate(){
+        let myDateComponents = DateComponents()
+        let startDate = Calendar.current.date(from: myDateComponents)!
+        
+        let offsetComps = Calendar.current.dateComponents([.hour, .minute, .second], from: startDate, to: Date())
+        
+        if case let (h?, m?, s?) = (offsetComps.hour, offsetComps.minute, offsetComps.second) {
+            
+        }
     }
     
     private func addView() {
@@ -69,6 +86,8 @@ final class NewsCell: UITableViewCell {
             make.centerY.equalTo(iconImageView)
             make.left.equalTo(iconImageView.snp.right).offset(5)
         }
+        
+        
     }
     
     func bindData(with model: NewsData){

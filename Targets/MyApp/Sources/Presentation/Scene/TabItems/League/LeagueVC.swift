@@ -9,15 +9,15 @@ final class LeagueVC: BaseVC<LeagueViewModel> {
     
     private let segmentedControl = UISegmentedControl(items: ["K리그1", "K리그2"]).then {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.addTarget(self, action: #selector(switchView), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(switchView), for: .valueChanged)
         $0.selectedSegmentIndex = 0
     }
     
-    private let league1View = UIView().then{
+    private let league1View = UITableView().then{
         $0.backgroundColor = .red
     }
     
-    private let league2View = UIView().then{
+    private let league2View = UITableView().then{
         $0.backgroundColor = .blue
     }
     
@@ -27,25 +27,40 @@ final class LeagueVC: BaseVC<LeagueViewModel> {
     }
     
     override func addView() {
-        view.addSubViews(segmentedControl, league1View, league2View)
+        view.addSubViews(segmentedControl, league2View, league1View)
     }
     
     override func setLayout() {
         
         segmentedControl.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(150)
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.width.equalToSuperview().inset(10)
+        }
+        
+        league1View.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.top.equalTo(segmentedControl.snp.bottom)
+        }
+        
+        league2View.snp.makeConstraints { make in
+            make.edges.equalTo(league1View)
         }
     }
     
     @objc func switchView(_ sender: UISegmentedControl){
-        if sender.selectedSegmentIndex == 0 {
-            league1View.alpha = 1
-            league2View.alpha = 0
-        } else{
-            league1View.alpha = 0
-            league2View.alpha = 1
+        let selection = sender.selectedSegmentIndex
+        switch selection {
+        case 0:
+            league1View.isHidden = false
+            league2View.isHidden = true
+            
+        case 1:
+            league1View.isHidden = true
+            league2View.isHidden = false
+            
+        default: break
         }
     }
 }

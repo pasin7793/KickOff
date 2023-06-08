@@ -9,7 +9,6 @@ struct NewsList: Codable{
 // MARK: - News
 struct News: Codable{
     let data: [NewsData]
-    let totalItems: Int
 }
 
 // MARK: - Datum

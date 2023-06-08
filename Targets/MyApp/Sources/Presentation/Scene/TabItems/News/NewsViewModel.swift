@@ -18,7 +18,6 @@ protocol NewsProtocol: AnyObject{
 final class NewsViewModel: BaseViewModel, Stepper{
     
     private let provider = MoyaProvider<League1Service>(plugins: [KOLoggingPlugin()])
-    //var newsData: [NewsData] = []
     
     weak var delegate: NewsProtocol?
     
@@ -30,7 +29,6 @@ final class NewsViewModel: BaseViewModel, Stepper{
                 do{
                     let decoder = JSONDecoder()
                     let json = try decoder.decode(NewsList.self, from: response.data)
-                    //self.newsData = json.news.data
                     self.delegate?.newsData.onNext(json.news.data)
                     completion(.success(true))
                 } catch {

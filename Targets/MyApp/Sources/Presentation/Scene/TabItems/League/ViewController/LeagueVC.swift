@@ -18,7 +18,8 @@ final class LeagueVC: BaseVC<LeagueViewModel>, LeagueProtocol{
     private let league1TableView = UITableView().then{
         $0.rowHeight = 50
         $0.register(LeagueCell.self, forCellReuseIdentifier: LeagueCell.identifier)
-        //$0.separatorStyle = .none
+        $0.separatorStyle = .singleLine
+        $0.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     }
     
     private let league2TableView = UITableView().then{

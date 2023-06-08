@@ -49,6 +49,8 @@ final class LeagueVC: BaseVC<LeagueViewModel> {
         }
     }
     
+    
+    
     @objc func switchView(_ sender: UISegmentedControl){
         let selection = sender.selectedSegmentIndex
         switch selection {

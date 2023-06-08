@@ -2,39 +2,34 @@
 import Foundation
 
 // MARK: - Football
-struct LeagueList {
+struct LeagueList: Codable{
     let seostr: String
     let table: [TableElement]
     let playoff: Bool
 }
 
 // MARK: - TableElement
-struct TableElement {
+struct TableElement: Codable {
     let data: DataClass
 }
 
 // MARK: - DataClass
-struct DataClass {
+struct DataClass: Codable {
     let table: DataTable
 }
 
-enum Color {
-    case ffd908
-    case the2Ad572
-}
-
 // MARK: - DataTable
-struct DataTable {
+struct DataTable: Codable {
     let all: [League]
 }
 
 // MARK: - All
-struct League {
+struct League: Codable {
     let name, shortName: String
     let id: Int
-    let pageURL: String
+    let pageUrl: String
     let played, wins, draws, losses: Int
     let scoresStr: String
     let goalConDiff, pts, idx: Int
-    let qualColor: Color?
+    let qualColor: String
 }

@@ -55,14 +55,8 @@ final class LeagueCell: UITableViewCell {
         $0.textAlignment = .center
     }
     
-    private let totalLabel = UILabel().then{
-        $0.font = UIFont.systemFont(ofSize: 13, weight: .medium)
-        $0.textColor = .darkGray
-        $0.textAlignment = .center
-    }
-    
     private let pointsLabel = UILabel().then{
-        $0.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        $0.font = UIFont.systemFont(ofSize: 13, weight: .bold)
         $0.textColor = .darkGray
         $0.textAlignment = .center
     }
@@ -80,7 +74,7 @@ final class LeagueCell: UITableViewCell {
     }
     
     private func addView() {
-        contentView.addSubViews(statusView,rankLabel,logoImageView,teamNameLabel,playTimesLabel,winsLabel,drawsLabel,lossesLabel,gdLabel,totalLabel,pointsLabel)
+        contentView.addSubViews(statusView,rankLabel,logoImageView,teamNameLabel,playTimesLabel,winsLabel,drawsLabel,lossesLabel,gdLabel,pointsLabel)
     }
         
     private func setLayout() {
@@ -137,15 +131,9 @@ final class LeagueCell: UITableViewCell {
             make.width.equalTo(40)
         }
         
-        totalLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(gdLabel)
-            make.left.equalToSuperview().inset(325)
-            make.width.equalTo(25)
-        }
-        
         pointsLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(totalLabel)
-            make.left.equalToSuperview().inset(357)
+            make.centerY.equalTo(gdLabel)
+            make.left.equalToSuperview().inset(337)
             make.width.equalTo(25)
         }
     }
@@ -161,7 +149,6 @@ final class LeagueCell: UITableViewCell {
             self?.drawsLabel.text = "\(model.draws)"
             self?.lossesLabel.text = "\(model.losses)"
             self?.gdLabel.text = "\(model.scoresStr ?? "")"
-            self?.totalLabel.text = "\(model.goalConDiff)"
             self?.pointsLabel.text = "\(model.pts)"
         }
     }

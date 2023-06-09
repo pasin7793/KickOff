@@ -36,6 +36,48 @@ final class LeagueVC: BaseVC<LeagueViewModel>, LeagueProtocol{
         $0.sizeToFit()
     }
     
+    private let playTimesLabel = UILabel().then{
+        $0.text = "경기"
+        $0.font = UIFont.systemFont(ofSize: 9, weight: .medium)
+        $0.textColor = .black
+        $0.sizeToFit()
+    }
+    
+    private let winsLabel = UILabel().then{
+        $0.text = "승"
+        $0.font = UIFont.systemFont(ofSize: 9, weight: .medium)
+        $0.textColor = .black
+        $0.sizeToFit()
+    }
+    
+    private let drawsLabel = UILabel().then{
+        $0.text = "무"
+        $0.font = UIFont.systemFont(ofSize: 9, weight: .medium)
+        $0.textColor = .black
+        $0.sizeToFit()
+    }
+    
+    private let lossesLabel = UILabel().then{
+        $0.text = "패"
+        $0.font = UIFont.systemFont(ofSize: 9, weight: .medium)
+        $0.textColor = .black
+        $0.sizeToFit()
+    }
+    
+    private let dgLabel = UILabel().then{
+        $0.text = "득실"
+        $0.font = UIFont.systemFont(ofSize: 9, weight: .medium)
+        $0.textColor = .black
+        $0.sizeToFit()
+    }
+    
+    private let pointsLabel = UILabel().then{
+        $0.text = "승점"
+        $0.font = UIFont.systemFont(ofSize: 9, weight: .medium)
+        $0.textColor = .black
+        $0.sizeToFit()
+    }
+    
     private let league1TableView = UITableView().then{
         $0.rowHeight = 50
         $0.register(LeagueCell.self, forCellReuseIdentifier: LeagueCell.identifier)
@@ -57,7 +99,7 @@ final class LeagueVC: BaseVC<LeagueViewModel>, LeagueProtocol{
     
     override func addView() {
         view.addSubViews(segmentedControl, headerView ,league2TableView, league1TableView)
-        headerView.addSubViews(rankLabel,teamNameLabel)
+        headerView.addSubViews(rankLabel,teamNameLabel, playTimesLabel,winsLabel,drawsLabel,lossesLabel, dgLabel, pointsLabel)
     }
     
     override func setLayout() {
@@ -93,7 +135,37 @@ final class LeagueVC: BaseVC<LeagueViewModel>, LeagueProtocol{
         
         teamNameLabel.snp.makeConstraints { make in
             make.centerY.equalTo(rankLabel)
-            make.left.equalTo(rankLabel.snp.right).offset(75)
+            make.left.equalTo(rankLabel.snp.right).offset(85)
+        }
+        
+        playTimesLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(teamNameLabel)
+            make.left.equalTo(teamNameLabel.snp.right).offset(60)
+        }
+        
+        winsLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(playTimesLabel)
+            make.left.equalTo(playTimesLabel.snp.right).offset(12)
+        }
+        
+        drawsLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(winsLabel)
+            make.left.equalTo(winsLabel.snp.right).offset(12)
+        }
+        
+        lossesLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(drawsLabel)
+            make.left.equalTo(drawsLabel.snp.right).offset(12)
+        }
+        
+        dgLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(lossesLabel)
+            make.left.equalTo(lossesLabel.snp.right).offset(22)
+        }
+        
+        pointsLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(dgLabel)
+            make.left.equalTo(dgLabel.snp.right).offset(34)
         }
     }
     

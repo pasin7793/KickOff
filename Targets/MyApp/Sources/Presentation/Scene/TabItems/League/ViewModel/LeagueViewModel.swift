@@ -16,8 +16,6 @@ final class LeagueViewModel: BaseViewModel, Stepper{
     weak var delegate: LeagueProtocol?
     weak var delegate2: LeagueProtocol?
     
-    var league2Data: [League] = []
-    
     func getLeague1(completion : @escaping (Result<Bool, Error>) -> ()){
         provider.request(.kr1) { result in
             print(result)
@@ -45,24 +43,8 @@ final class LeagueViewModel: BaseViewModel, Stepper{
                 do{
                     let decoder = JSONDecoder()
                     let league2Json = try decoder.decode(LeagueList.self, from: response.data)
-                    //self.delegate2?.league2Data.onNext(league2Json.table.first?.data.table.all ?? .init())
-                    self.league2Data = league2Json.table.first?.data.table.all ?? .init()
+                    self.delegate2?.league2Data.onNext(league2Json.table.first?.data.table.all ?? .init())
                     completion(.success(true))
-                } catch let DecodingError.dataCorrupted(context) {
-                    print(context)
-                } catch let DecodingError.keyNotFound(key, context) {
-                    print("Key '\(key)' not found:", context.debugDescription)
-                    print("codingPath:", context.codingPath)
-                } catch let DecodingError.valueNotFound(value, context) {
-                    print("Value '\(value)' not found:", context.debugDescription)
-                    print("codingPath:", context.codingPath)
-                } catch let DecodingError.typeMismatch(type, context)  {
-                    print("Type '\(type)' mismatch:", context.debugDescription)
-                    print("codingPath:", context.codingPath)
-                } catch {
-                    print("error: ", error)
-                    print(error.localizedDescription)
-                
                 } catch {
                     print(error)
                 }

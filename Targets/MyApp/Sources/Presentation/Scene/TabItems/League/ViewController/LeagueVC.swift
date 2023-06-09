@@ -68,12 +68,10 @@ final class LeagueVC: BaseVC<LeagueViewModel>, LeagueProtocol{
         }.disposed(by: disposeBag)
         
         viewModel.delegate2 = self
-        /*league2Data.bind(to: league2TableView.rx.items(cellIdentifier: League2Cell.identifier, cellType: League2Cell.self)){
+        league2Data.bind(to: league2TableView.rx.items(cellIdentifier: League2Cell.identifier, cellType: League2Cell.self)){
             (row, data, cell) in
             cell.bindData(with: data)
-         }.disposed(by: disposeBag)*/
-        league2TableView.delegate = self
-        league2TableView.dataSource = self
+         }.disposed(by: disposeBag)
         viewModel.getLeague2 { _ in
             self.league2TableView.reloadData()
         }
@@ -107,17 +105,5 @@ final class LeagueVC: BaseVC<LeagueViewModel>, LeagueProtocol{
             
         default: break
         }
-    }
-}
-
-extension LeagueVC: UITableViewDelegate, UITableViewDataSource{
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: League2Cell.identifier, for: indexPath) as! League2Cell
-        cell.bindData(with: viewModel.league2Data[indexPath.row])
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.league2Data.count
     }
 }

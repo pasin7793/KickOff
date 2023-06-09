@@ -9,7 +9,6 @@ final class LeagueCell: UITableViewCell {
     private let rankLabel = UILabel().then{
         $0.font = UIFont.systemFont(ofSize: 13, weight: .bold)
         $0.textColor = .black
-        $0.sizeToFit()
     }
     
     private let statusView = UIView()
@@ -21,56 +20,50 @@ final class LeagueCell: UITableViewCell {
     private let teamNameLabel = UILabel().then{
         $0.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         $0.textColor = .darkGray
-        $0.sizeToFit()
         $0.textAlignment = .center
+        $0.lineBreakMode = .byWordWrapping
+        $0.numberOfLines = 0
     }
     
     private let playTimesLabel = UILabel().then{
         $0.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         $0.textColor = .darkGray
-        $0.sizeToFit()
         $0.textAlignment = .center
     }
     
     private let winsLabel = UILabel().then{
         $0.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         $0.textColor = .darkGray
-        $0.sizeToFit()
         $0.textAlignment = .center
     }
     
     private let drawsLabel = UILabel().then{
         $0.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         $0.textColor = .darkGray
-        $0.sizeToFit()
         $0.textAlignment = .center
     }
     
     private let lossesLabel = UILabel().then{
         $0.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         $0.textColor = .darkGray
-        $0.sizeToFit()
         $0.textAlignment = .center
     }
     
     private let gdLabel = UILabel().then{
         $0.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         $0.textColor = .darkGray
-        $0.sizeToFit()
         $0.textAlignment = .center
     }
     
     private let totalLabel = UILabel().then{
         $0.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         $0.textColor = .darkGray
-        $0.sizeToFit()
         $0.textAlignment = .center
     }
     
     private let pointsLabel = UILabel().then{
         $0.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         $0.textColor = .darkGray
-        $0.sizeToFit()
         $0.textAlignment = .center
     }
     
@@ -112,41 +105,48 @@ final class LeagueCell: UITableViewCell {
         teamNameLabel.snp.makeConstraints { make in
             make.centerY.equalTo(logoImageView)
             make.left.equalTo(logoImageView.snp.right).offset(10)
+            make.width.equalTo(100)
         }
         
         playTimesLabel.snp.makeConstraints { make in
             make.centerY.equalTo(teamNameLabel)
-            make.left.equalToSuperview().inset(200)
+            make.left.equalToSuperview().inset(195)
         }
         
         winsLabel.snp.makeConstraints { make in
             make.centerY.equalTo(playTimesLabel)
-            make.left.equalToSuperview().inset(220)
+            make.left.equalToSuperview().inset(215)
+            make.width.equalTo(20)
         }
         
         drawsLabel.snp.makeConstraints { make in
             make.centerY.equalTo(winsLabel)
-            make.left.equalToSuperview().inset(240)
+            make.left.equalToSuperview().inset(235)
+            make.width.equalTo(20)
         }
         
         lossesLabel.snp.makeConstraints { make in
             make.centerY.equalTo(drawsLabel)
-            make.left.equalToSuperview().inset(260)
+            make.left.equalToSuperview().inset(255)
+            make.width.equalTo(20)
         }
         
         gdLabel.snp.makeConstraints { make in
             make.centerY.equalTo(lossesLabel)
             make.left.equalToSuperview().inset(280)
+            make.width.equalTo(40)
         }
         
         totalLabel.snp.makeConstraints { make in
             make.centerY.equalTo(gdLabel)
-            make.left.equalToSuperview().inset(330)
+            make.left.equalToSuperview().inset(325)
+            make.width.equalTo(25)
         }
         
         pointsLabel.snp.makeConstraints { make in
             make.centerY.equalTo(totalLabel)
             make.left.equalToSuperview().inset(357)
+            make.width.equalTo(25)
         }
     }
     

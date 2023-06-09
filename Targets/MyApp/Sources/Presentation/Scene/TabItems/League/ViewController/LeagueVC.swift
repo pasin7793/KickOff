@@ -21,8 +21,20 @@ final class LeagueVC: BaseVC<LeagueViewModel>, LeagueProtocol{
         $0.layer.cornerRadius = 10
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
+    //MARK: - Label in header
+    private let rankLabel = UILabel().then{
+        $0.text = "순위"
+        $0.font = UIFont.systemFont(ofSize: 9, weight: .medium)
+        $0.textColor = .black
+        $0.sizeToFit()
+    }
     
-    
+    private let teamNameLabel = UILabel().then{
+        $0.text = "팀"
+        $0.font = UIFont.systemFont(ofSize: 9, weight: .medium)
+        $0.textColor = .black
+        $0.sizeToFit()
+    }
     
     private let league1TableView = UITableView().then{
         $0.rowHeight = 50
@@ -45,6 +57,7 @@ final class LeagueVC: BaseVC<LeagueViewModel>, LeagueProtocol{
     
     override func addView() {
         view.addSubViews(segmentedControl, headerView ,league2TableView, league1TableView)
+        headerView.addSubViews(rankLabel,teamNameLabel)
     }
     
     override func setLayout() {
@@ -71,6 +84,16 @@ final class LeagueVC: BaseVC<LeagueViewModel>, LeagueProtocol{
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
             make.top.equalTo(headerView.snp.bottom)
+        }
+        
+        rankLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.left.equalTo(15)
+        }
+        
+        teamNameLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(rankLabel)
+            make.left.equalTo(rankLabel.snp.right).offset(75)
         }
     }
     

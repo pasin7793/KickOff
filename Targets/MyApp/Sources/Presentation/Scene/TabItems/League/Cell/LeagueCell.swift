@@ -3,7 +3,7 @@ import SnapKit
 import Then
 import Kingfisher
 
-final class League1Cell: UITableViewCell {
+final class LeagueCell: UITableViewCell {
     static let identifier = "League1TableViewCell"
     
     private let rankLabel = UILabel().then{

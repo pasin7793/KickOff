@@ -16,16 +16,24 @@ final class LeagueVC: BaseVC<LeagueViewModel>, LeagueProtocol{
         $0.selectedSegmentIndex = 0
     }
     
+    private let headerView = UIView().then{
+        $0.backgroundColor = UIColor(red: 0.9294, green: 0.9294, blue: 0.9294, alpha: 1.0)
+        $0.layer.cornerRadius = 10
+        $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
+    
+    
+    
     private let league1TableView = UITableView().then{
         $0.rowHeight = 50
-        $0.register(League1Cell.self, forCellReuseIdentifier: League1Cell.identifier)
+        $0.register(LeagueCell.self, forCellReuseIdentifier: LeagueCell.identifier)
         $0.separatorStyle = .singleLine
         $0.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     }
     
     private let league2TableView = UITableView().then{
         $0.rowHeight = 50
-        $0.register(League2Cell.self, forCellReuseIdentifier: League2Cell.identifier)
+        $0.register(LeagueCell.self, forCellReuseIdentifier: LeagueCell.identifier)
         $0.separatorStyle = .singleLine
         $0.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     }
@@ -36,7 +44,7 @@ final class LeagueVC: BaseVC<LeagueViewModel>, LeagueProtocol{
     }
     
     override func addView() {
-        view.addSubViews(segmentedControl, league2TableView, league1TableView)
+        view.addSubViews(segmentedControl, headerView ,league2TableView, league1TableView)
     }
     
     override func setLayout() {
@@ -47,34 +55,37 @@ final class LeagueVC: BaseVC<LeagueViewModel>, LeagueProtocol{
             make.width.equalToSuperview().inset(10)
         }
         
+        headerView.snp.makeConstraints { make in
+            make.top.equalTo(segmentedControl.snp.bottom).offset(5)
+            make.leading.trailing.equalToSuperview().inset(10)
+            make.height.equalTo(30)
+        }
+        
         league1TableView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
-            make.top.equalTo(segmentedControl.snp.bottom)
+            make.top.equalTo(headerView.snp.bottom)
         }
         
         league2TableView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
-            make.top.equalTo(segmentedControl.snp.bottom)
+            make.top.equalTo(headerView.snp.bottom)
         }
     }
     
     override func setup() {
         viewModel.delegate = self
-        leagueData.bind(to: league1TableView.rx.items(cellIdentifier: League1Cell.identifier, cellType: League1Cell.self)){
+        leagueData.bind(to: league1TableView.rx.items(cellIdentifier: LeagueCell.identifier, cellType: LeagueCell.self)){
             (row, data, cell) in
             cell.bindData(with: data)
         }.disposed(by: disposeBag)
         
         viewModel.delegate2 = self
-        league2Data.bind(to: league2TableView.rx.items(cellIdentifier: League2Cell.identifier, cellType: League2Cell.self)){
+        league2Data.bind(to: league2TableView.rx.items(cellIdentifier: LeagueCell.identifier, cellType: LeagueCell.self)){
             (row, data, cell) in
             cell.bindData(with: data)
          }.disposed(by: disposeBag)
-        viewModel.getLeague2 { _ in
-            self.league2TableView.reloadData()
-        }
     }
     
     override func viewDidLoad() {

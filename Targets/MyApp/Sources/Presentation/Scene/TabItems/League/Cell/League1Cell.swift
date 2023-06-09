@@ -3,8 +3,8 @@ import SnapKit
 import Then
 import Kingfisher
 
-final class LeagueCell: UITableViewCell {
-    static let identifier = "LeagueTableViewCell"
+final class League1Cell: UITableViewCell {
+    static let identifier = "League1TableViewCell"
     
     private let rankLabel = UILabel().then{
         $0.font = UIFont.systemFont(ofSize: 13, weight: .bold)
@@ -152,7 +152,7 @@ final class LeagueCell: UITableViewCell {
     
     func bindData(with model: League){
         DispatchQueue.main.async { [weak self] in
-            self?.statusView.backgroundColor = UIColor(hex: model.qualColor)
+            self?.statusView.backgroundColor = UIColor(hex: model.qualColor ?? "")
             self?.rankLabel.text = "\(model.idx)"
             self?.logoImageView.kf.setImage(with: URL(string: "https://images.fotmob.com/image_resources/logo/teamlogo/\(model.id).png"))
             self?.teamNameLabel.text = model.name
@@ -160,7 +160,7 @@ final class LeagueCell: UITableViewCell {
             self?.winsLabel.text = "\(model.wins)"
             self?.drawsLabel.text = "\(model.draws)"
             self?.lossesLabel.text = "\(model.losses)"
-            self?.gdLabel.text = "\(model.scoresStr)"
+            self?.gdLabel.text = "\(model.scoresStr ?? "")"
             self?.totalLabel.text = "\(model.goalConDiff)"
             self?.pointsLabel.text = "\(model.pts)"
         }

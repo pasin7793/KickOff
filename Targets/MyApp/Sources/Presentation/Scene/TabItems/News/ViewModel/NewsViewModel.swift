@@ -10,12 +10,12 @@ protocol NewsProtocol: AnyObject{
 
 final class NewsViewModel: BaseViewModel, Stepper{
     
-    private let provider = MoyaProvider<League1Service>(plugins: [KOLoggingPlugin()])
+    private let provider = MoyaProvider<LeagueService>(plugins: [KOLoggingPlugin()])
     
     weak var delegate: NewsProtocol?
     
     func getNews(completion : @escaping (Result<Bool, Error>) -> ()){
-        provider.request(.news){ result in
+        provider.request(.kr1){ result in
             print(result)
             switch result{
             case let .success(response):

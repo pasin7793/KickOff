@@ -2,25 +2,31 @@
 import Moya
 import Foundation
 
-enum League1Service{
-    case news
+enum LeagueService{
+    case kr1
+    case kr2
 }
 
-extension League1Service: TargetType{
+extension LeagueService: TargetType{
     public var baseURL: URL{
-        return URL(string: BaseURL.league1Url)!
+        switch self {
+        case .kr1:
+            return URL(string: BaseURL.league1Url)!
+        case .kr2:
+            return URL(string: BaseURL.league2Url)!
+        }
     }
     
     var path: String{
         switch self {
-        case .news:
+        case .kr1, .kr2:
             return ""
         }
     }
     
     var method: Moya.Method{
         switch self {
-        case .news:
+        case .kr1, .kr2:
             return .get
         }
     }
@@ -31,7 +37,7 @@ extension League1Service: TargetType{
     
     var task: Task{
         switch self {
-        case .news:
+        case .kr1, .kr2:
             return .requestPlain
         }
     }

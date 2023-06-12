@@ -8,6 +8,7 @@
 
 import Moya
 import RxFlow
+import Foundation
 
 protocol MatchesProtocol: AnyObject{
     
@@ -15,10 +16,15 @@ protocol MatchesProtocol: AnyObject{
 
 final class MatchViewModel: BaseViewModel, Stepper{
     
+    private let now = Date()
+    private let formatter = DateFormatter().then{
+        $0.dateFormat = "yyyyMMdd"
+    }
+    
     private let provider = MoyaProvider<APIService>(plugins: [KOLoggingPlugin()])
     
     func getMatch(completion : @escaping (Result<Bool, Error>) -> ()){
-        provider.request(.match(date: "20230614")) { result in
+        provider.request(.match(date: formatter.string(from: now))) { result in
             print(result)
         }
     }

@@ -11,7 +11,7 @@ protocol LeagueProtocol: AnyObject{
 
 final class LeagueViewModel: BaseViewModel, Stepper{
     
-    private let provider = MoyaProvider<LeagueService>(plugins: [KOLoggingPlugin()])
+    private let provider = MoyaProvider<APIService>(plugins: [KOLoggingPlugin()])
     
     weak var delegate: LeagueProtocol?
     weak var delegate2: LeagueProtocol?

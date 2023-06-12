@@ -10,7 +10,7 @@ protocol NewsProtocol: AnyObject{
 
 final class NewsViewModel: BaseViewModel, Stepper{
     
-    private let provider = MoyaProvider<LeagueService>(plugins: [KOLoggingPlugin()])
+    private let provider = MoyaProvider<APIService>(plugins: [KOLoggingPlugin()])
     
     weak var delegate: NewsProtocol?
     

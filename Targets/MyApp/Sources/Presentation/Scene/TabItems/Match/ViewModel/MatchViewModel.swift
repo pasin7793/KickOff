@@ -9,6 +9,10 @@
 import Foundation
 import RxFlow
 
+protocol MatchesProtocol: AnyObject{
+    
+}
+
 final class MatchViewModel: BaseViewModel, Stepper{
     
 }

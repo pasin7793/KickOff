@@ -5,7 +5,7 @@ import Foundation
 enum APIService{
     case kr1
     case kr2
-    case match
+    case match(date: String)
 }
 
 extension APIService: TargetType{
@@ -40,8 +40,11 @@ extension APIService: TargetType{
     
     var task: Task{
         switch self {
-        case .kr1, .kr2, .match:
+        case .kr1, .kr2:
             return .requestPlain
+            
+        case let .match(date):
+            return .requestParameters(parameters: ["date" : date], encoding: URLEncoding.queryString)
         }
     }
     

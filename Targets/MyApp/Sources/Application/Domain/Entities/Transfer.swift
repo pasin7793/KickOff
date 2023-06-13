@@ -2,23 +2,22 @@
 import Foundation
 
 // MARK: - Transfer
-struct Transfer {
+struct Transfer: Codable{
     let transfers: Transfers
 }
 
 // MARK: - Transfers
-struct Transfers {
+struct Transfers: Codable {
     let type: String
-    let data: [TransfersDatum]
+    let data: [TransferList]
 }
 
 // MARK: - TransfersDatum
-struct TransfersDatum {
+struct TransferList: Codable {
     let name: String
     let playerID: Int
     let position: Position?
     let transferDate: String
-    let transferText: [NSNull]
     let fromClub: String
     let fromClubID: Int
     let toClub: String
@@ -30,17 +29,17 @@ struct TransfersDatum {
 }
 
 // MARK: - Fee
-struct Fee {
+struct Fee: Codable {
     let feeText, localizedFeeText: String
     let value: String?
 }
 
 // MARK: - Position
-struct Position {
+struct Position: Codable {
     let label, key: String
 }
 
 // MARK: - TransferType
-struct TransferType {
+struct TransferType: Codable {
     let text, localizationKey: String
 }

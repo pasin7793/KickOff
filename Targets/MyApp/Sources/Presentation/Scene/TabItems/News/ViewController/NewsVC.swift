@@ -15,9 +15,21 @@ final class NewsVC: BaseVC<NewsViewModel>, NewsProtocol{
         $0.dateFormat = "M월 d일"
     }
     
+    private let segmentedControl = UISegmentedControl(items: ["소식", "이적"]).then {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.addTarget(self, action: #selector(switchView), for: .valueChanged)
+        $0.selectedSegmentIndex = 0
+    }
+    
     private let newsTableView = UITableView().then{
         $0.rowHeight = 300
         $0.register(NewsCell.self, forCellReuseIdentifier: NewsCell.identifier)
+        $0.separatorStyle = .none
+    }
+    
+    private let transferTableView = UITableView().then{
+        $0.rowHeight = 300
+        $0.backgroundColor = .red
         $0.separatorStyle = .none
     }
     
@@ -44,14 +56,39 @@ final class NewsVC: BaseVC<NewsViewModel>, NewsProtocol{
     }
     
     override func addView() {
-        view.addSubViews(newsTableView)
+        view.addSubViews(transferTableView,newsTableView, segmentedControl)
     }
     
     override func setLayout() {
+        segmentedControl.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.width.equalToSuperview().inset(10)
+        }
         newsTableView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaInsets)
+            make.top.equalTo(segmentedControl.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
+        }
+        
+        transferTableView.snp.makeConstraints { make in
+            make.top.equalTo(segmentedControl.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+    
+    @objc func switchView(_ sender: UISegmentedControl){
+        let selection = sender.selectedSegmentIndex
+        switch selection {
+        case 0:
+            newsTableView.isHidden = false
+            transferTableView.isHidden = true
+            
+        case 1:
+            newsTableView.isHidden = true
+            transferTableView.isHidden = false
+        default: break
         }
     }
 }

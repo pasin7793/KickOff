@@ -7,13 +7,18 @@ import SnapKit
 import RxDataSources
 
 final class MatchVC: BaseVC<MatchViewModel>, MatchProtocol{
-    var matchData = BehaviorSubject<[Match]>(value: [])
+    var matchData = PublishSubject<[Match]>()
     
     private let matchTableView = UITableView().then{
-        $0.rowHeight = 50
+        $0.rowHeight = 100
         $0.register(MatchCell.self, forCellReuseIdentifier: MatchCell.identifier)
         $0.separatorStyle = .singleLine
         $0.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+    }
+    
+    override func configureNavigation() {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.title = "매치"
     }
     
     override func setup() {

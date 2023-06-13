@@ -12,7 +12,7 @@ import RxSwift
 import Foundation
 
 protocol MatchProtocol: AnyObject{
-    var matchData: BehaviorSubject<[Match]> {get set}
+    var matchData: PublishSubject<[Match]> { get set }
 }
 
 final class MatchViewModel: BaseViewModel, Stepper{

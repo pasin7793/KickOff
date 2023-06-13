@@ -31,7 +31,7 @@ final class NewsVC: BaseVC<NewsViewModel>, NewsProtocol, TransferProtocol{
     private let transferTableView = UITableView().then{
         $0.rowHeight = 200
         $0.register(TransferCell.self, forCellReuseIdentifier: TransferCell.identifier)
-        $0.separatorStyle = .none
+        $0.separatorStyle = .singleLine
     }
     
     override func configureNavigation() {

@@ -16,6 +16,7 @@ final class MatchVC: BaseVC<MatchViewModel>, MatchProtocol{
         $0.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     }
     
+
     override func configureNavigation() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.title = "매치"

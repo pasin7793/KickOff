@@ -6,9 +6,10 @@ import Then
 import SnapKit
 import RxDataSources
 
-final class NewsVC: BaseVC<NewsViewModel>, NewsProtocol{
+final class NewsVC: BaseVC<NewsViewModel>, NewsProtocol, TransferProtocol{
     
     var newsData = PublishSubject<[NewsData]>()
+    var transferData = PublishSubject<[TransferList]>()
     
     private let now = Date()
     private let formatter = DateFormatter().then{
@@ -28,8 +29,8 @@ final class NewsVC: BaseVC<NewsViewModel>, NewsProtocol{
     }
     
     private let transferTableView = UITableView().then{
-        $0.rowHeight = 300
-        $0.backgroundColor = .red
+        $0.rowHeight = 200
+        $0.register(TransferCell.self, forCellReuseIdentifier: TransferCell.identifier)
         $0.separatorStyle = .none
     }
     
@@ -44,6 +45,12 @@ final class NewsVC: BaseVC<NewsViewModel>, NewsProtocol{
             (row, data, cell) in
             cell.bindData(with: data)
         }.disposed(by: disposeBag)
+        
+        viewModel.transferDelegate = self
+        transferData.bind(to: transferTableView.rx.items(cellIdentifier: TransferCell.identifier, cellType: TransferCell.self)){
+            (row, data, cell) in
+            cell.bindData(with: data)
+        }.disposed(by: disposeBag)
     }
     
     override func viewDidLoad() {
@@ -51,6 +58,11 @@ final class NewsVC: BaseVC<NewsViewModel>, NewsProtocol{
         self.viewModel.getNews { _ in
             DispatchQueue.main.async {
                 self.newsTableView.reloadData()
+            }
+        }
+        self.viewModel.getTransfer { _ in
+            DispatchQueue.main.async {
+                self.transferTableView.reloadData()
             }
         }
     }

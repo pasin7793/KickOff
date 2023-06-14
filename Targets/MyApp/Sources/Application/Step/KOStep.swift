@@ -15,6 +15,6 @@ enum KOStep: Step{
     case matchIsRequired
     case newsIsRequired
     case leagueIsRequired
-    case deatilLeagueIsRequired
+    case deatilLeagueIsRequired(id: Int)
     case detailMatchIsRequired
 }

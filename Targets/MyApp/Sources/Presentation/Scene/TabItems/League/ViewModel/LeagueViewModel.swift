@@ -55,4 +55,11 @@ final class LeagueViewModel: BaseViewModel, Stepper{
             }
         }
     }
+    
+    func pushToDetail(model: LeagueList){
+        print("aaaaa")
+        self.steps.accept(KOStep.deatilLeagueIsRequired(id: model.table.first?.data.table.all.first?.id ?? .init()))
+        
+        
+    }
 }

@@ -32,6 +32,9 @@ class LeagueFlow: Flow {
         switch step {
         case .leagueIsRequired:
             return leagueIsRequired()
+            
+        case let .deatilLeagueIsRequired(id):
+            return detailLeagueIsRequired(id: id)
         
         default:
             return .none
@@ -41,6 +44,13 @@ class LeagueFlow: Flow {
     private func leagueIsRequired() -> FlowContributors{
         let vm = LeagueViewModel()
         let vc = LeagueVC(vm)
+        self.rootViewController.pushViewController(vc, animated: true)
+        return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vm))
+    }
+    
+    private func detailLeagueIsRequired(id: Int) -> FlowContributors{
+        let vm = DetailLeagueVM(leagueId: id)
+        let vc = DetailLeagueVC(vm)
         self.rootViewController.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vm))
     }

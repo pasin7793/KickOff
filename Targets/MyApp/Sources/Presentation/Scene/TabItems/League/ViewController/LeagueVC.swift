@@ -187,6 +187,12 @@ final class LeagueVC: BaseVC<LeagueViewModel>, LeagueProtocol{
             (row, data, cell) in
             cell.bindData(with: data)
          }.disposed(by: disposeBag)
+        
+        league2TableView.rx.modelSelected(League.self)
+            .asDriver()
+            .drive(with: self, onNext: { owner, league in
+                owner.viewModel.pushToDetail(model: league)
+            }).disposed(by: disposeBag)
     }
     
     override func viewDidLoad() {

@@ -176,9 +176,10 @@ final class LeagueVC: BaseVC<LeagueViewModel>, LeagueProtocol{
             cell.bindData(with: data)
         }.disposed(by: disposeBag)
         
-        league1TableView.rx.modelSelected(LeagueList.self)
-            .subscribe(onNext: { item in
-                self.viewModel.pushToDetail(model: item)
+        league1TableView.rx.modelSelected(League.self)
+            .asDriver()
+            .drive(with: self, onNext: { owner, league in
+                owner.viewModel.pushToDetail(model: league)
             }).disposed(by: disposeBag)
         
         viewModel.delegate2 = self

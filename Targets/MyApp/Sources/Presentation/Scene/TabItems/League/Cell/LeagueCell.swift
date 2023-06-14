@@ -139,17 +139,17 @@ final class LeagueCell: UITableViewCell {
     }
     
     func bindData(with model: League){
-        DispatchQueue.main.async { [weak self] in
-            self?.statusView.backgroundColor = UIColor(hex: model.qualColor ?? "")
-            self?.rankLabel.text = "\(model.idx)"
-            self?.logoImageView.kf.setImage(with: URL(string: "https://images.fotmob.com/image_resources/logo/teamlogo/\(model.id).png"))
-            self?.teamNameLabel.text = model.name
-            self?.playTimesLabel.text = "\(model.played)"
-            self?.winsLabel.text = "\(model.wins)"
-            self?.drawsLabel.text = "\(model.draws)"
-            self?.lossesLabel.text = "\(model.losses)"
-            self?.gdLabel.text = "\(model.scoresStr ?? "")"
-            self?.pointsLabel.text = "\(model.pts)"
+        DispatchQueue.main.async {
+            self.statusView.backgroundColor = UIColor(hex: model.qualColor ?? "")
+            self.rankLabel.text = "\(model.idx)"
+            self.logoImageView.kf.setImage(with: URL(string: "https://images.fotmob.com/image_resources/logo/teamlogo/\(model.id).png"))
+            self.teamNameLabel.text = model.name
+            self.playTimesLabel.text = "\(model.played)"
+            self.winsLabel.text = "\(model.wins)"
+            self.drawsLabel.text = "\(model.draws)"
+            self.lossesLabel.text = "\(model.losses)"
+            self.gdLabel.text = "\(model.scoresStr ?? "")"
+            self.pointsLabel.text = "\(model.pts)"
         }
     }
 }

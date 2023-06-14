@@ -110,10 +110,10 @@ final class MatchCell: UITableViewCell {
         DispatchQueue.main.async { [weak self] in
             self?.homeLabel.text = model.home.longName
             self?.awayLabel.text = model.away.longName
-            self?.homeLogo.kf.setImage(with: URL(string: "https://images.fotmob.com/image_resources/logo/teamlogo/\(model.home.id).png"))
-            self?.awayLogo.kf.setImage(with: URL(string: "https://images.fotmob.com/image_resources/logo/teamlogo/\(model.away.id).png"))
-            self?.homeScoreLabel.text = "\(model.home.score)"
-            self?.awayScoreLabel.text = "\(model.away.score)"
+            self?.homeLogo.kf.setImage(with: URL(string: "https://images.fotmob.com/image_resources/logo/teamlogo/\(model.home.id ?? 0).png"))
+            self?.awayLogo.kf.setImage(with: URL(string: "https://images.fotmob.com/image_resources/logo/teamlogo/\(model.away.id ?? 0).png"))
+            self?.homeScoreLabel.text = "\(model.home.score ?? 0)"
+            self?.awayScoreLabel.text = "\(model.away.score ?? 0)"
         }
     }
 }

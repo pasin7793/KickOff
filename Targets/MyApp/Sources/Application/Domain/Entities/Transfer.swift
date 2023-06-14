@@ -25,7 +25,7 @@ struct TransferList: Codable {
     let fee: Fee?
     let transferType: TransferType
     let contractExtension, onLoan: Bool?
-    let fromDate, toDate, marketValue: String?
+    var fromDate, toDate, marketValue: String?
 }
 
 // MARK: - Fee

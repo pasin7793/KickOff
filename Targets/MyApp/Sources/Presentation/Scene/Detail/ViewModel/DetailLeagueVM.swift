@@ -9,6 +9,8 @@
 import Foundation
 import RxFlow
 
+
+
 final class DetailLeagueVM: BaseViewModel, Stepper{
     
     let leagueId: Int
@@ -16,4 +18,6 @@ final class DetailLeagueVM: BaseViewModel, Stepper{
     init(leagueId: Int){
         self.leagueId = leagueId
     }
+    
+    
 }

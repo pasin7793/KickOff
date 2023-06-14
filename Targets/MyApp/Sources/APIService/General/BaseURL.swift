@@ -12,4 +12,5 @@ struct BaseURL{
     static let league1Url = "https://www.fotmob.com/api/leagues?id=9080"
     static let league2Url = "https://www.fotmob.com/api/leagues?id=9116"
     static let matchesUrl = "https://www.fotmob.com/api/matches"
+    static let teamsUrl = "https://www.fotmob.com/api/teams"
 }
